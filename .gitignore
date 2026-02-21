@@ -4,4 +4,5 @@
 Release/
 **/*.tmp
 **/*.*.tmp
+scenes/*.tmp
 temp/
