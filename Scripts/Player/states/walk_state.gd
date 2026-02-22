@@ -10,6 +10,11 @@ func physics_update(host: Node, delta: float) -> void:
 	var player = host as Player
 	if not player:
 		return
+	 # Если не на земле и не в прыжке — падаем
+	if not player.is_on_floor() and player.state_machine.current_state_name not in ["JumpStart", "JumpIdle"]:
+		player.state_machine.change_state("Fall")
+		return
+		
 	var input_dir = Input.get_vector("left", "right", "up", "down")
 	var direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
 	if direction.length() > 0 and player.is_on_floor():

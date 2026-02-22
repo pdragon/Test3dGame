@@ -77,3 +77,7 @@ func _on_animation_finished(anim_name: StringName):
 	print("Animation finished: ", anim_name)  # отладка
 	if anim_name == "full/jump_Land":  # укажите точное имя анимации
 		jump_land_finished.emit()
+
+func play_fall():
+	if playback:
+		playback.travel("Fall")

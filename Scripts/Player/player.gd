@@ -58,6 +58,11 @@ func _ready():
 	var jump_land_node = AnimationNodeAnimation.new()
 	jump_land_node.animation = "full/Jump_Land"
 	root.add_node("JumpLand", jump_land_node, Vector2(600, 100))
+	
+	var fall_node = AnimationNodeAnimation.new()
+	fall_node.animation = "full/Jump"  # имя анимации в AnimationPlayer
+	root.add_node("Fall", fall_node, Vector2(800, 0))
+
 
 	# --- Соединяем Start с Idle ---
 	var trans_start = AnimationNodeStateMachineTransition.new()
@@ -89,6 +94,7 @@ func setup_state_machine():
 	state_machine.register_state("Idle", IdleState.new())
 	state_machine.register_state("Walk", WalkState.new())
 	state_machine.register_state("Run", RunState.new())
+	state_machine.register_state("Fall", FallState.new())
 	state_machine.register_state("JumpStart", JumpStartState.new())
 	state_machine.register_state("JumpIdle", JumpIdleState.new())
 	state_machine.register_state("JumpLand", JumpLandState.new())
