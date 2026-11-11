@@ -26,12 +26,16 @@ func _process(_delta):
 	elif not is_running and _last_run:
 		run_stopped.emit()
 		
-	if is_jumping:
-		jump_pressed.emit()
+	#if is_jumping:
+		#jump_pressed.emit()
 
 	_last_move_dir = move_dir
 	_last_run = is_running
 
+func _input(event: InputEvent):
+	if event.is_action_pressed("jump"):
+		jump_pressed.emit()
+		
 #func _input(event: InputEvent):
 	#if event.is_action_pressed("jump"):
 		#jump_pressed.emit()

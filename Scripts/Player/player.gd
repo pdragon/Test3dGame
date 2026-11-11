@@ -125,8 +125,9 @@ func _physics_process(delta):
 	# Гравитация (применяется всегда, если не на полу)
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-		if position.y < -10.0:
-			position = Vector3(0,0,0)
+		#if position.y < -10.0:
+			#position = Vector3(0,0,0)
+			#velocity = Vector3.ZERO
 
 	# Обновление текущего состояния (физика движения)
 	state_machine.physics_update(delta)

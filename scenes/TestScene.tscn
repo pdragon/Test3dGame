@@ -1,17 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqwk6yccexs1o"]
+[gd_scene load_steps=5 format=3 uid="uid://dqwk6yccexs1o"]
 
 [ext_resource type="PackedScene" uid="uid://ch821nsadejs1" path="res://scenes/Player2.tscn" id="1_rlkm5"]
 [ext_resource type="PackedScene" uid="uid://bfcsyi5m8tvco" path="res://scenes/Tile.tscn" id="2_n77mx"]
+[ext_resource type="PackedScene" uid="uid://b6dwn5pll2kot" path="res://scenes/Floor.tscn" id="3_n77mx"]
 
 [sub_resource type="Environment" id="Environment_elqb8"]
 
 [node name="Main" type="Node3D"]
 
 [node name="Player2" parent="." instance=ExtResource("1_rlkm5")]
-walk_speed = null
-run_speed = null
-acceleration = null
-friction = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_elqb8")
@@ -124,3 +121,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 3)
 
 [node name="Tile17-3" parent="LanscapeHolder/Tile17-3" instance=ExtResource("2_n77mx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="Tile31" parent="LanscapeHolder" instance=ExtResource("3_n77mx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.5222397)

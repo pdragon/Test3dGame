@@ -14,16 +14,29 @@ func physics_update(host: Node, delta: float) -> void:
 	# Управление в воздухе (с пониженным ускорением)
 	var input_dir = Input.get_vector("left", "right", "up", "down")
 	var direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
+	#if direction.length() > 0:
+		#if player.model_node:
+			#var target_angle = atan2(direction.x, direction.z)
+			#player.model_node.rotation.y = target_angle
+		##var target_speed = player.walk_speed
+		##if Input.is_action_pressed("run"):
+		##	target_speed = player.run_speed
+		##var target_vel = direction * target_speed
+		##player.velocity.x = move_toward(player.velocity.x, target_vel.x, player.acceleration * delta * 0.5)
+		##player.velocity.z = move_toward(player.velocity.z, target_vel.z, player.acceleration * delta * 0.5)
+	#else:
+		#player.velocity.x = move_toward(player.velocity.x, 0, player.friction * delta * 0.5)
+		#player.velocity.z = move_toward(player.velocity.z, 0, player.friction * delta * 0.5)
 	if direction.length() > 0:
 		if player.model_node:
 			var target_angle = atan2(direction.x, direction.z)
 			player.model_node.rotation.y = target_angle
-		#var target_speed = player.walk_speed
-		#if Input.is_action_pressed("run"):
-		#	target_speed = player.run_speed
-		#var target_vel = direction * target_speed
-		#player.velocity.x = move_toward(player.velocity.x, target_vel.x, player.acceleration * delta * 0.5)
-		#player.velocity.z = move_toward(player.velocity.z, target_vel.z, player.acceleration * delta * 0.5)
+		var target_speed = player.walk_speed
+		if Input.is_action_pressed("run"):
+			target_speed = player.run_speed
+		var target_vel = direction * target_speed
+		player.velocity.x = move_toward(player.velocity.x, target_vel.x, player.acceleration * delta * 0.5)
+		player.velocity.z = move_toward(player.velocity.z, target_vel.z, player.acceleration * delta * 0.5)
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, player.friction * delta * 0.5)
 		player.velocity.z = move_toward(player.velocity.z, 0, player.friction * delta * 0.5)
