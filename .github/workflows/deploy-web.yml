@@ -13,31 +13,43 @@ permissions:
 jobs:
   export-and-deploy:
     runs-on: ubuntu-latest
-    container:
-      image: steefers/redot-ci:web-4.3
+    # Мы убрали container: image: steefers/...
+    # Теперь используем чистую Ubuntu и ставим Redot 26.3 сами
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download and Setup Redot Web Export Templates
+      - name: Download Redot 26.3 Binary and Templates
         run: |
-          # 1. Качаем шаблоны по твоей ссылке
+          # 1. Качаем бинарник редактора Redot 26.3 для Linux
+          wget -q https://github.com/Redot-Engine/redot-engine/releases/download/redot-26.3-stable/Redot_v26.3-stable_linux.x86_64.zip -O /tmp/redot.zip
+
+          # 2. Распаковываем бинарник
+          mkdir -p /tmp/redot-bin
+          unzip -q /tmp/redot.zip -d /tmp/redot-bin
+
+          # Делаем его исполняемым и добавляем в PATH
+          chmod +x /tmp/redot-bin/Redot_v26.3-stable_linux.x86_64
+          echo "/tmp/redot-bin" >> $GITHUB_PATH
+
+          # Переименовываем для удобства вызова
+          mv /tmp/redot-bin/Redot_v26.3-stable_linux.x86_64 /tmp/redot-bin/redot
+
+          # 3. Качаем шаблоны экспорта для версии 26.3
           wget -q https://github.com/Redot-Engine/redot-engine/releases/download/redot-26.3-stable/Redot_v26.3-stable_export_templates.tpz -O /tmp/redot-templates.tpz
 
-          # 2. Создаем папку, куда Redot/Godot ожидает их увидеть
-          mkdir -p ~/.local/share/godot/export_templates/26.3.stable
+          # 4. Создаем правильную папку для шаблонов (обратите внимание на "redot", а не "godot")
+          mkdir -p ~/.local/share/redot/export_templates/26.3.stable
 
-          # 3. Распаковываем .tpz (это обычный zip) во временную папку
+          # 5. Распаковываем шаблоны
           unzip -q /tmp/redot-templates.tpz -d /tmp/redot-templates
-
-          # 4. Перемещаем файлы из внутренней папки "templates" в нужную директорию
-          mv /tmp/redot-templates/templates/* ~/.local/share/godot/export_templates/26.3.stable/
+          mv /tmp/redot-templates/templates/* ~/.local/share/redot/export_templates/26.3.stable/
 
       - name: Export Web Build
         run: |
           mkdir -v -p build/web
-          # Вызываем бинарник redot (так как это CI-образ для Redot)
+          # Теперь вызываем наш скачанный redot
           redot --headless --verbose --export-release "Web" ./build/web/index.html
 
       - name: Upload Pages Artifact
