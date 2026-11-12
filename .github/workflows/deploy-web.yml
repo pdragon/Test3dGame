@@ -30,11 +30,11 @@ jobs:
           unzip -q /tmp/redot.zip -d /tmp/redot-bin
 
           # Делаем его исполняемым и добавляем в PATH
-          chmod +x /tmp/redot-bin/Redot_v26.3-stable_linux.x86_64
+          chmod +x /tmp/redot-bin/redot.linuxbsd.editor.x86_64
           echo "/tmp/redot-bin" >> $GITHUB_PATH
 
           # Переименовываем для удобства вызова
-          mv /tmp/redot-bin/Redot_v26.3-stable_linux.x86_64 /tmp/redot-bin/redot
+          mv /tmp/redot-bin/redot.linuxbsd.editor.x86_64 /tmp/redot-bin/redot
 
           # 3. Качаем шаблоны экспорта для версии 26.3
           wget -q https://github.com/Redot-Engine/redot-engine/releases/download/redot-26.3-stable/Redot_v26.3-stable_export_templates.tpz -O /tmp/redot-templates.tpz
