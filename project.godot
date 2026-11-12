@@ -13,7 +13,7 @@ config_version=5
 config/name="Test"
 config/tags=PackedStringArray("3d")
 run/main_scene="uid://dqwk6yccexs1o"
-config/features=PackedStringArray("26.1", "GL Compatibility", "Redot")
+config/features=PackedStringArray("26.3", "GL Compatibility", "Redot")
 config/icon="res://icon.svg"
 
 [importer_defaults]
