@@ -1,0 +1,39 @@
+name: Deploy Web Build to GitHub Pages
+
+on:
+  push:
+    branches: ["main"] # Или ваша основная ветка (master)
+  workflow_dispatch: # Позволяет запускать вручную
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  export-and-deploy:
+    runs-on: ubuntu-latest
+    container:
+      image: image: steefers/redot-ci:web-4.3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup export templates
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/4.6.2.stable ~/.local/share/godot/export_templates/4.6.2.stable
+
+      - name: Export Web Build
+        run: |
+          mkdir -v -p build/web
+          godot --headless --verbose --export-release "Web" ./build/web/index.html
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./build/web # Путь к папке с готовой сборкой
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
