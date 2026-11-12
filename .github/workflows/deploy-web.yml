@@ -14,7 +14,7 @@ jobs:
   export-and-deploy:
     runs-on: ubuntu-latest
     container:
-      image: image: steefers/redot-ci:web-4.3
+      image: steefers/redot-ci:web-4.3
     steps:
       - name: Checkout
         uses: actions/checkout@v4
