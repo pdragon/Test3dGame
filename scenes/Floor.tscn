@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6dwn5pll2kot"]
+
+[ext_resource type="ArrayMesh" uid="uid://ckp1wja6sr0i0" path="res://assets/kaykit/Floor.obj" id="1_dmu3r"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dmu3r"]
+points = PackedVector3Array(-2, 0, -2, -2, 0, 2, -2, 0.39996085, -2, 2, 0, -2, -2, 0.39996085, 2, 2, 0, 2, -1.9001566, 0.5, -1.9001566, 2, 0.39996085, -2, -1.9001566, 0.5, 1.899765, 2, 0.39996085, 2, 1.899765, 0.5, -1.9001566, 1.899765, 0.5, 1.899765)
+
+[node name="Floor" type="StaticBody3D"]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_dmu3r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D2"]
+mesh = ExtResource("1_dmu3r")
+skeleton = NodePath("../..")
